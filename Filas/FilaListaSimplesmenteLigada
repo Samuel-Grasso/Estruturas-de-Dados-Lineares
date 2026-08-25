@@ -1,0 +1,66 @@
+public class FilaListaSimplesmente {
+    private Node head;
+    private Node tail;
+    private int size;
+    private class Node {
+        int dado;
+        Node next;
+        public Node(int d){
+            this.dado = d;
+            this.next = null;
+        }
+    }
+    public FilaListaSimplesmente(){
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
+    public void Push(int dado){
+        Node novo = new Node(dado);
+        if (isEmpty()){
+            head = novo;
+            tail = novo;
+            size++;
+        }
+        else {
+            novo.next = null;
+            tail.next = novo;
+            tail = novo;
+            size++;
+        }
+    }
+    public void Pop(){
+        if (isEmpty()) {
+            throw new FilaVaziaException("A fila está vazia!");
+        }
+        if (size == 1) {
+            head = null;
+            tail = null;
+            size--;
+        }
+        else {
+            Node novohead = head.next;
+            head.next = null;
+            head = novohead;
+            size--;
+        }
+    }
+    public int size(){
+        return size;
+    }
+    public int top(){
+        if (isEmpty()) {
+            throw new FilaVaziaException("A fila está vazia!");
+        }
+        return head.dado;
+    }
+    public boolean isEmpty(){
+        return head == null;
+    }
+    public class FilaVaziaException extends RuntimeException {
+        public FilaVaziaException(String mensagem) {
+            super(mensagem);
+
+        }
+    }
+}
